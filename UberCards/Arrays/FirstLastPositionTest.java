@@ -3,7 +3,7 @@ package UberCards.Arrays;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class FirstLasPositionTest {
+public class FirstLastPositionTest {
     @Test
     public void testFirstLast() {
         int[] nums = { 5, 6, 8, 8, 8, 10 };
