@@ -1,4 +1,4 @@
-package UberCards.Arrays;
+package UberCards.Strings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class GroupAnagrams {
     private String findLettersId(String str) {
         int[] arr = new int[26];
         for (char s : str.toCharArray()) {
-            arr[s - 'a' ]++;
+            arr[s - 'a']++;
         }
         return Arrays.toString(arr);
     }

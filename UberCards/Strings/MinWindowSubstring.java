@@ -1,4 +1,4 @@
-package UberCards.Arrays;
+package UberCards.Strings;
 
 import org.junit.Test;
 
