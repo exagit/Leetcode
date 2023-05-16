@@ -119,13 +119,10 @@ class OrderBuilder {
         Set<TrieNode> visited = new HashSet<>();
         Set<TrieNode> thisVisited = new HashSet<>();
         for (Character c : graph.keySet()) {
-            if (!visited.contains(graph.get(c))) {
-                try {
-                    this.topologicalSort(graph.get(c), visited, thisVisited, stack);
-                    visited.addAll(thisVisited);
-                } catch (Exception e) {
-                    return "";
-                }
+            try {
+                this.topologicalSort(graph.get(c), visited, thisVisited, stack);
+            } catch (Exception e) {
+                return "";
             }
         }
         StringBuilder orderedStr = new StringBuilder();
