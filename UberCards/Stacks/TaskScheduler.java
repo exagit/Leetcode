@@ -3,6 +3,7 @@ package UberCards.Stacks;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import org.junit.Test;
 
@@ -39,36 +40,36 @@ public class TaskScheduler {
 
 class Scheduler {
     public int leastInterval(char[] tasks, int n) {
-        int[] frequencySet = this.getFrequencies(tasks);
+        PriorityQueue<int[]> pq = this.getFrequencies(tasks);
         Queue<Character> q = new ArrayDeque<>(n);
         List<String> strbuilder = new ArrayList<>();
-        while (!this.isEmpty(frequencySet)) {
-            char nextTask = this.getNotIncludedChar(frequencySet, q);
-            if (nextTask != '0') {
-                frequencySet[nextTask - 'A']--;
-            }
+        while (!pq.isEmpty()) {
+            char nextTask = this.getNotIncludedChar(pq, q);
             this.addTaskToQueue(nextTask, q, n, strbuilder);
         }
+        System.out.println(strbuilder.toString());
         return strbuilder.size();
     }
 
-
-    private boolean isEmpty(int[] frequencySet) {
-        for (int i = 0; i < 26; i++) {
-            if (frequencySet[i] != 0) {
-                return false;
+    private char getNotIncludedChar(PriorityQueue<int[]> pq, Queue<Character> q) {
+        PriorityQueue<int[]> newpq = new PriorityQueue<>((e1, e2) -> e2[1] - e1[1]);
+        while (!pq.isEmpty()) {
+            int[] entry = pq.poll();
+            char c = (char) (entry[0]);
+            if (!q.contains(c)) {
+                if (entry[1] - 1 != 0)
+                    newpq.add(new int[] { c, entry[1] - 1 });
+                while (!newpq.isEmpty()) {
+                    pq.add(newpq.poll());
+                }
+                return c;
+            } else {
+                newpq.add(entry);
             }
         }
-        return true;
-    }
 
-
-    private char getNotIncludedChar(int[] frequencySet, Queue<Character> q) {
-        for (int i = 0; i < 26; i++) {
-            char currChar = (char) ('A' + i);
-            if (!q.contains(currChar) && frequencySet[i] != 0) {
-                return currChar;
-            }
+        while (!newpq.isEmpty()) {
+            pq.add(newpq.poll());
         }
         return '0';
     }
@@ -88,11 +89,17 @@ class Scheduler {
     }
 
 
-    private int[] getFrequencies(char[] tasks) {
+    private PriorityQueue<int[]> getFrequencies(char[] tasks) {
         int[] frequencies = new int[26];
         for (char task : tasks) {
             frequencies[task - 'A']++;
         }
-        return frequencies;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((e1, e2) -> e2[1] - e1[1]);
+        for (int i = 0; i < 26; i++) {
+            if (frequencies[i] != 0) {
+                pq.add(new int[] { i + 'A', frequencies[i] });
+            }
+        }
+        return pq;
     }
 }

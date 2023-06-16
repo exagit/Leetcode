@@ -14,7 +14,7 @@ public class DeepCopyList {
         n2.next = n3;
         n1.arbitrary = n3;
         DeepCopy sol = new DeepCopy();
-        Node n1Copy = sol.deepCopy(n1);
+        sol.deepCopy(n1);
     }
 }
 
