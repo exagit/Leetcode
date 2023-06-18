@@ -45,24 +45,25 @@ class PalendromicSubsequenceSolution {
                     }
                 } else {
                     int max = 0;
-                    int diagonalLeft =
-                            ((start + 1 < n && end - 1 >= 0) ? dp[start + 1][end - 1] : 0);
+                    int diagonalLeft = dp[start + 1][end - 1];
                     if (s.charAt(start) == s.charAt(end)) {
                         max = 2 + diagonalLeft;
                     } else {
                         max = diagonalLeft;
                     }
-                    int down = (start + 1 < n && end - 1 >= 0) ? dp[start + 1][end] : 0;
-                    int left = (end - 1 >= 0) ? dp[start][end - 1] : 0;
+                    int down = dp[start + 1][end];
+                    int left = dp[start][end - 1];
                     dp[start][end] =
                             Math.max(max, Math.max(left, down));
                 }
             }
+            System.out.println("After diagonal fill");
+            this.printDp(dp);
         }
         return dp[0][n - 1];
     }
 
-    private void print(int[][] dp) {
+    private void printDp(int[][] dp) {
         int n = dp.length;
         for (int i = 0; i < n; i++) {
             System.out.println(Arrays.toString(dp[i]));
