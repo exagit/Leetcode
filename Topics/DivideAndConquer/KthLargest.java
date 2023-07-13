@@ -1,5 +1,6 @@
 package Topics.DivideAndConquer;
 
+import java.util.Arrays;
 import org.junit.Test;
 
 public class KthLargest {
@@ -19,6 +20,33 @@ public class KthLargest {
     public void test3() {
         int[] nums = { 5, 2, 4, 1, 3, 6, 0 };
         System.out.println(new KthLargestSol().findKthLargest(nums, 4));
+    }
+
+    @Test
+    public void test4() {
+        String pattern = "aab";
+        System.out.println(Arrays.toString(generatePreprocessingTable(pattern)));
+    }
+
+    public static int[] generatePreprocessingTable(String pattern) {
+        int[] pi = new int[pattern.length()];
+        int j = 0; // index for traversing the pattern
+
+        for (int i = 1; i < pattern.length(); i++) {
+            if (pattern.charAt(i) == pattern.charAt(j)) {
+                j++;
+                pi[i] = j;
+            } else {
+                if (j != 0) {
+                    j = pi[j - 1];
+                    i--; // keep the current character the same
+                } else {
+                    pi[i] = 0;
+                }
+            }
+        }
+
+        return pi;
     }
 }
 
