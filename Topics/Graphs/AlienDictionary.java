@@ -1,4 +1,4 @@
-package UberCards.Graphs;
+package Topics.Graphs;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -141,7 +141,7 @@ class OrderBuilder {
             }
             thisVisited.add(trieNode);
             for (TrieNode c : trieNode.children) {
-                topologicalSort(c, visited, thisVisited, stack);
+                this.topologicalSort(c, visited, thisVisited, stack);
             }
             stack.add(trieNode.c);
             thisVisited.remove(trieNode);

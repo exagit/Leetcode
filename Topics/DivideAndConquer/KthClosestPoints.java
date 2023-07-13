@@ -1,4 +1,4 @@
-package UberCards.DivideAndConquer;
+package Topics.DivideAndConquer;
 
 import java.util.Arrays;
 import org.junit.Test;

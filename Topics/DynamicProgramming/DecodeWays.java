@@ -1,4 +1,4 @@
-package UberCards.DynamicProgramming;
+package Topics.DynamicProgramming;
 
 import java.util.HashMap;
 import java.util.Map;

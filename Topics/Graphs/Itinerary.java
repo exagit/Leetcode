@@ -1,4 +1,4 @@
-package UberCards.Graphs;
+package Topics.Graphs;
 
 import java.util.ArrayList;
 import java.util.Arrays;

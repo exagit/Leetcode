@@ -1,4 +1,4 @@
-package UberCards.Backtracking;
+package Topics.Backtracking;
 
 import java.util.Arrays;
 import org.junit.Test;

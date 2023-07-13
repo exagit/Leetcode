@@ -1,4 +1,4 @@
-package UberCards.Strings;
+package Topics.Strings;
 
 import java.util.regex.Pattern;
 import org.junit.Test;

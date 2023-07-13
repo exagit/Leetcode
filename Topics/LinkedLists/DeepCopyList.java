@@ -1,4 +1,4 @@
-package UberCards.LinkedLists;
+package Topics.LinkedLists;
 
 import java.util.HashMap;
 import java.util.Map;

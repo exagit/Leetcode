@@ -1,4 +1,4 @@
-package UberCards.LinkedLists;
+package Topics.LinkedLists;
 
 import java.util.PriorityQueue;
 import org.junit.Test;

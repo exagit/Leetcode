@@ -1,4 +1,4 @@
-package UberCards.DynamicProgramming;
+package Topics.DynamicProgramming;
 
 import org.junit.Test;
 

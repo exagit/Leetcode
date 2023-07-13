@@ -1,4 +1,4 @@
-package UberCards.TwoPointer;
+package Topics.TwoPointer;
 
 import org.junit.Test;
 

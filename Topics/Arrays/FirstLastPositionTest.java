@@ -1,4 +1,4 @@
-package UberCards.Arrays;
+package Topics.Arrays;
 
 import java.util.Arrays;
 import org.junit.Test;

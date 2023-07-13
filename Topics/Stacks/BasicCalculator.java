@@ -1,4 +1,4 @@
-package UberCards.Stacks;
+package Topics.Stacks;
 
 import java.util.Stack;
 import org.junit.Test;
@@ -110,7 +110,7 @@ class Calculator {
                     positiveSum += operand;
                     break;
                 }
-                Character operator = operatorStack.pop();
+                Character operator = this.operatorStack.pop();
                 if (operator == '+') {
                     positiveSum += operand;
                 } else {
