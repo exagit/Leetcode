@@ -47,8 +47,6 @@ class EditDistanceSolution {
                 int up = this.deleteCost + dp[i - 1][j];
                 dp[i][j] = Math.min(replace, Math.min(left, up));
             }
-            // System.out.println("at...");
-            // this.printDp(dp);
         }
         return dp[rows][columns];
     }
