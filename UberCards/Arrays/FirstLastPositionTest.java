@@ -12,4 +12,13 @@ public class FirstLastPositionTest {
         System.out.println(Arrays.toString(range));
     }
 
+    @Test
+    public void test() {
+        int a = 5, b = 0;
+        double a2 = Math.pow(1.1, a);
+        double b2 = Math.pow(1.1, b);
+        int sum = (int) (Math.log(a2 * b2) / Math.log(1.1));
+        System.out.println(sum);
+    }
+
 }

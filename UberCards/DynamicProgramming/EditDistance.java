@@ -1,6 +1,5 @@
 package UberCards.DynamicProgramming;
 
-import java.util.Arrays;
 import org.junit.Test;
 
 public class EditDistance {
@@ -52,12 +51,5 @@ class EditDistanceSolution {
             // this.printDp(dp);
         }
         return dp[rows][columns];
-    }
-
-    private void printDp(int[][] dp) {
-        int n = dp.length;
-        for (int i = 0; i < n; i++) {
-            System.out.println(Arrays.toString(dp[i]));
-        }
     }
 }
