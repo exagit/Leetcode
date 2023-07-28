@@ -1,6 +1,8 @@
 package Topics.Strings;
 
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.junit.Test;
 
 public class DecodeString {
@@ -18,8 +20,11 @@ public class DecodeString {
 
     @Test
     public void test3() {
-        String str = "2[abc]3[cd]ef";
-        System.out.println(DecodeSol.decodeString(str));
+        // String str = "2[abc]3[cd]ef";
+        // System.out.println(DecodeSol.decodeStringChatGpt(str));
+
+        String pattern = "i18n", input = "internationalization";
+        System.out.println(DecodeSol.matchPattern(pattern, input));
     }
 
     @Test
@@ -31,6 +36,47 @@ public class DecodeString {
 
 
 class DecodeSol {
+
+    public static boolean matchPattern(String pattern, String inputString) {
+        // Escape special characters in the pattern
+        String escapedPattern = Pattern.quote(pattern);
+
+        // Replace number placeholders in the pattern with appropriate regex patterns
+        String regexPattern = escapedPattern.replaceAll("\\d+", "\\\\w");
+
+        // Use regex to check if the input string matches the pattern
+        Pattern compiledPattern = Pattern.compile(regexPattern);
+        Matcher matcher = compiledPattern.matcher(inputString);
+
+        return matcher.matches();
+    }
+
+    public static String decodeStringChatGpt(String s) {
+        Stack<Integer> numStack = new Stack<>();
+        Stack<StringBuilder> strStack = new Stack<>();
+        StringBuilder currentString = new StringBuilder();
+        int currentNum = 0;
+
+        for (char c : s.toCharArray()) {
+            if (Character.isDigit(c)) {
+                currentNum = currentNum * 10 + (c - '0');
+            } else if (c == '[') {
+                numStack.push(currentNum);
+                strStack.push(currentString);
+                currentNum = 0;
+                currentString = new StringBuilder();
+            } else if (c == ']') {
+                StringBuilder previousString = strStack.pop();
+                int repeatTimes = numStack.pop();
+                currentString = previousString.append(currentString.toString().repeat(repeatTimes));
+            } else {
+                currentString.append(c);
+            }
+        }
+
+        return currentString.toString();
+    }
+
     public static String decodeString(String str) {
         Stack<String> ss = new Stack<>();
         Stack<Integer> ns = new Stack<>();

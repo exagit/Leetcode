@@ -1,4 +1,4 @@
-package Topics.Stacks;
+package Topics.Intervals;
 
 import java.util.PriorityQueue;
 import org.junit.Test;
