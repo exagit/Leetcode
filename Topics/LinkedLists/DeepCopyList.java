@@ -2,6 +2,7 @@ package Topics.LinkedLists;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 
 public class DeepCopyList {
@@ -17,7 +18,6 @@ public class DeepCopyList {
         sol.deepCopy(n1);
     }
 }
-
 
 class DeepCopy {
     Node deepCopy(Node head) {
@@ -46,15 +46,14 @@ class DeepCopy {
         }
         return rootCopy;
     }
-}
 
+    class Node {
+        int val;
+        Node next;
+        Node arbitrary;
 
-class Node {
-    int val;
-    Node next;
-    Node arbitrary;
-
-    Node(int val) {
-        this.val = val;
+        Node(int val) {
+            this.val = val;
+        }
     }
 }

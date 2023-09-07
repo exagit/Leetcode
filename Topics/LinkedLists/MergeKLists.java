@@ -1,6 +1,7 @@
 package Topics.LinkedLists;
 
 import java.util.PriorityQueue;
+
 import org.junit.Test;
 
 public class MergeKLists {
@@ -52,6 +53,7 @@ public class MergeKLists {
 
     @Test
     public void testBasic() {
+        System.out.println("esresfesd");
         int[][] arr = { { 1, 4, 5 }, { 1, 3, 4 }, { 2, 6 } };
         ListNode[] lists = new ListNode[arr.length];
         for (int i = 0; i < arr.length; i++) {
@@ -61,4 +63,3 @@ public class MergeKLists {
         printList(sol.mergeKLists(lists));
     }
 }
-

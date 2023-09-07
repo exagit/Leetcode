@@ -1,7 +1,10 @@
 package Topics.Graphs;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.Test;
 
 public class MaxPerimeter {
@@ -13,10 +16,9 @@ public class MaxPerimeter {
                 { 0, 1, 0, 1, 1 }
         };
         int result = new MPSol().findPerimeter(matrix);
-        System.out.println(result);
+        assertEquals(11, result);
     }
 }
-
 
 class MPSol {
 
