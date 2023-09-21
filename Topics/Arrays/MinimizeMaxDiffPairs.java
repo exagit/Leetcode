@@ -1,52 +1,56 @@
 package Topics.Arrays;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
+import java.util.PriorityQueue;
+
 import org.junit.Test;
 
 public class MinimizeMaxDiffPairs {
     @Test
     public void test1() {
         int nums[] = { 10, 1, 2, 7, 1, 3 }, p = 2;
-        assertEquals(new MMDPSol().minimizeMax(nums, p), 1);
+        assertEquals(1, new MMDPSol().minimizeMax(nums, p));
     }
 
     @Test
     public void test2() {
         int nums[] = { 4, 2, 1, 2 }, p = 1;
-        assertEquals(new MMDPSol().minimizeMax(nums, p), 0);
+        assertEquals(0, new MMDPSol().minimizeMax(nums, p));
     }
 }
 
-
 class MMDPSol {
     public int minimizeMax(int[] nums, int p) {
-        Arrays.sort(nums);
         int n = nums.length;
-        int dp[][] = new int[n][p];
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(dp[i], -1);
+        if (n <= 1 || p == 0)
+            return 0;
+        Arrays.sort(nums);
+        int dp[][] = new int[n + 1][p + 1];
+        for (int i = 0; i < n + 1; i++) {
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
         }
-
-        return this.minimizeMaxInternal(nums, n, p, 0, dp).intValue();
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>((a, b) -> b - a);
+        return this.minimizeMaxInternal(nums, n, p, 0, maxHeap, dp).intValue();
     }
 
-    private Integer minimizeMaxInternal(int[] nums, int n, int p, int i, int[][] dp) {
+    private Integer minimizeMaxInternal(int[] nums, int n, int p, int i, PriorityQueue<Integer> maxHeap, int[][] dp) {
         if (p == 0) {
-            return 0;
+            return maxHeap.peek();
         }
         if (i > n - 2) {
             return Integer.MAX_VALUE;
         }
 
-        if (dp[i][p - 1] == -1) {
+        if (dp[i][p] == Integer.MAX_VALUE) {
             int thisPair = Math.abs(nums[i + 1] - nums[i]);
-            Integer withThisPair =
-                    Math.max(thisPair,
-                            this.minimizeMaxInternal(nums, n, p - 1, i + 2, dp));
-            Integer withoutThisPair = this.minimizeMaxInternal(nums, n, p, i + 1, dp);
-            dp[i][p - 1] = Math.min(withThisPair, withoutThisPair);
+            maxHeap.offer(thisPair);
+            Integer withThisPair = this.minimizeMaxInternal(nums, n, p - 1, i + 2, maxHeap, dp);
+            maxHeap.remove(thisPair);
+            Integer withoutThisPair = this.minimizeMaxInternal(nums, n, p, i + 1, maxHeap, dp);
+            dp[i][p] = Math.min(dp[i][p], Math.min(withThisPair, withoutThisPair));
         }
-        return dp[i][p - 1];
+        return dp[i][p];
     }
 }
