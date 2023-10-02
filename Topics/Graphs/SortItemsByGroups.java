@@ -19,7 +19,7 @@ public class SortItemsByGroups {
     public void test1() throws Exception {
         int n = 8, m = 2, group[] = { -1, -1, 1, 0, 0, 1, 0, -1 },
                 beforeItems[][] = { {}, { 6 }, { 5 }, { 6 }, { 3, 6 }, {}, {}, {} };
-        List<List<Integer>> beforeItemsList = TestUtils.convert2dArrayToListofList(beforeItems);
+        List<List<Integer>> beforeItemsList = TestUtils.convert2dArrayToNestedList(beforeItems);
         int finalListing[] = new SIBG().sortItems(n, m, group, beforeItemsList);
         System.out.println(Arrays.toString(finalListing));
     }
@@ -28,7 +28,7 @@ public class SortItemsByGroups {
     public void test2() throws Exception {
         int n = 8, m = 2, group[] = { -1, -1, 1, 0, 0, 1, 0, -1 },
                 beforeItems[][] = { {}, { 6 }, { 5 }, { 6 }, { 3 }, {}, { 4 }, {} };
-        List<List<Integer>> beforeItemsList = TestUtils.convert2dArrayToListofList(beforeItems);
+        List<List<Integer>> beforeItemsList = TestUtils.convert2dArrayToNestedList(beforeItems);
         int finalListing[] = new SIBG().sortItems(n, m, group, beforeItemsList);
         System.out.println(Arrays.toString(finalListing));
     }
@@ -37,7 +37,7 @@ public class SortItemsByGroups {
     public void test3() throws Exception {
         int n = 5, m = 3, group[] = { 0, 0, 2, 1, 0 },
                 beforeItems[][] = { { 3 }, {}, {}, {}, { 1, 3, 2 } };
-        List<List<Integer>> beforeItemsList = TestUtils.convert2dArrayToListofList(beforeItems);
+        List<List<Integer>> beforeItemsList = TestUtils.convert2dArrayToNestedList(beforeItems);
         int finalListing[] = new SIBG().sortItems(n, m, group, beforeItemsList);
         System.out.println(Arrays.toString(finalListing));
     }
@@ -46,7 +46,7 @@ public class SortItemsByGroups {
     public void test4() throws Exception {
         int n = 8, m = 2, group[] = { -1, -1, 1, 0, 0, 1, 0, -1 },
                 beforeItems[][] = { { 3 }, { 6, 0 }, { 5 }, { 6 }, { 3, 6, 7 }, {}, {}, {} };
-        List<List<Integer>> beforeItemsList = TestUtils.convert2dArrayToListofList(beforeItems);
+        List<List<Integer>> beforeItemsList = TestUtils.convert2dArrayToNestedList(beforeItems);
         int finalListing[] = new SIBG().sortItems(n, m, group, beforeItemsList);
         System.out.println(Arrays.toString(finalListing));
     }

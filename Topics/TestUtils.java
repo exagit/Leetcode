@@ -21,7 +21,7 @@ public class TestUtils {
         }
     }
 
-    public static List<List<Integer>> convert2dArrayToListofList(int[][] array) {
+    public static List<List<Integer>> convert2dArrayToNestedList(int[][] array) {
         List<List<Integer>> finalList = new ArrayList<>();
         for (int i = 0; i < array.length; i++) {
             finalList.add(new ArrayList<>());
