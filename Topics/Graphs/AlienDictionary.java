@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
+
 import org.junit.Test;
 
 public class AlienDictionary {
@@ -33,7 +34,6 @@ public class AlienDictionary {
         System.out.println(sol.alienOrder(words));
     }
 }
-
 
 class OrderBuilder {
     public String alienOrder(String[] words) {
@@ -69,8 +69,7 @@ class OrderBuilder {
         while (!queue.isEmpty()) {
             TrieNode curr = queue.pop();
             if (curr.children.size() > 0) {
-                List<Character> ordering =
-                        curr.children.stream().map(t -> t.c).collect(Collectors.toList());
+                List<Character> ordering = curr.children.stream().map(t -> t.c).collect(Collectors.toList());
                 orderings.add(ordering);
             }
 
@@ -136,20 +135,14 @@ class OrderBuilder {
             Set<TrieNode> thisVisited,
             Stack<Character> stack) throws Exception {
         if (!visited.contains(trieNode)) {
-            if (thisVisited.contains(trieNode)) {
-                throw new Exception("Cycle detected");
-            }
-            thisVisited.add(trieNode);
+            visited.add(trieNode);
             for (TrieNode c : trieNode.children) {
                 this.topologicalSort(c, visited, thisVisited, stack);
             }
             stack.add(trieNode.c);
-            thisVisited.remove(trieNode);
-            visited.add(trieNode);
         }
     }
 }
-
 
 class TrieNode {
     char c;

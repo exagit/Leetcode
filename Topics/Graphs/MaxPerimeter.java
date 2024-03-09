@@ -36,11 +36,11 @@ class MPSol {
     }
 
     int visit(int[][] matrix, int i, int j, int m, int n) {
-        if (matrix[i][j] == 2 || matrix[i][j] == 0) {
+        if (matrix[i][j] == 2 || matrix[i][j] == 0) { // either is visited or water cell
             return 0;
         }
 
-        matrix[i][j] = 2;
+        matrix[i][j] = 2; // Mark the cell visited
         int finalPerimeter = 0;
         if (this.isBoundary(matrix, i, j, m, n)) {
             finalPerimeter += 1;

@@ -1,0 +1,53 @@
+Queue for producers and consumers
+String data being generated
+Solution should be extensible for increasing scale of producers and consumers
+Pull based consumer events
+Datastorage is infinite.
+
+Queueing system:
+Producer 1 -> data:"String 1", topic: "Topic1"
+Producer 2 -> "String 2", topic: "Topic2"
+
+Consumer 1 -> "Topic1"
+Consumer 2 -> "Topic1"
+Consumer 3 -> "Topic2"
+
+
+Scenario1:
+1. Producer going down after pushing data is not a problem
+Producer goes down in between transmission , we will not ingest the new event to the queue.
+1. Consumer is not available - data will remain in the system as is indefinitely.
+2. Consumer is taking a lot of time to process the message
+
+APIs:
+1. pushMessage(data, topic)
+2. pullMessage(topic) - event : {eventid, data}
+3. ackMessage(event)
+
+Flow:ƒ
+Producer1.pushMessage("String 1", "Topic1");
+Producer2.pushMessage("String 2", "Topic1");
+Consumer1.pullMessage("topic1") - {"String1", "T001"}
+Consumer1.pull("topic1") - "String2"
+
+Consumer2.pullMessage("topic1") - null
+
+Queue :
+Topic1Queue: ["String1", "String2"]
+Topic1InprocessQueue - []
+Consumer1 pull(Topic1) - String1  Topic1Queue: ["String2"], Topic1InprocessQueue - ["String1"]
+Consumer2 pull(Topic1) - String2 Topic1Queue: [], Topic1InprocessQueue - [String1, String2]
+Consumer1.ack(String1) - Topic1Queue: [], Topic1InprocessQueue - [String2]
+Consumer2.ack(String2) - Topic1Queue: [], Topic1InprocessQueue - []
+
+QueueService:
+1. pushMessage(data, topic)
+2. pullMessage(topic) - event : {eventid, data}
+3. ackMessage(event)
+
+Topic:
+    Queue:
+    InProcessQueue
+
+QueueSystem:
+    List<Topic> activeTopics;

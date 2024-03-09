@@ -1,6 +1,7 @@
 package Topics.Graphs;
 
 import static java.util.stream.Collectors.toList;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -20,7 +21,8 @@ class Result {
     /*
      * Complete the 'quickestWayUp' function below.
      *
-     * The function is expected to return an INTEGER. The function accepts following parameters: 1.
+     * The function is expected to return an INTEGER. The function accepts following
+     * parameters: 1.
      * 2D_INTEGER_ARRAY ladders 2. 2D_INTEGER_ARRAY snakes
      */
 
@@ -79,12 +81,31 @@ class Result {
     }
 }
 
-
+/**
+ * 
+ * Do a BFS from the first node i.e. cell 1 and check if it reaches end.
+ * queue = <1>;
+ * while queue is not empty
+ * currNode = queue.pop();
+ * int curr = currNode.cell;
+ * if(curr == 100){
+ * return currNode.steps;
+ * }
+ * if(!visited.contains(curr)){
+ * visited.add(curr);
+ * for(each diceRoll: allDiceRolls){
+ * int nextSquare = curr+diceRoll;
+ * if(nextSquare<=100){
+ * int settledSquare = settle(nextSquare);
+ * queue.add(settledSquare);
+ * }
+ * }
+ * }
+ */
 public class SnakesAndLadder {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter =
-                new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
         int t = Integer.parseInt(bufferedReader.readLine().trim());
 

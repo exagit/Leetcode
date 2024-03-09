@@ -1,0 +1,42 @@
+A -10->B
+       |
+       5
+       v
+       C
+
+       Expense1 A spent 20 on food share equaly with B
+       Expense
+       Spend:{
+        A:10,
+        B:5
+       }
+       Share:{
+        A:7.5,
+        B:7.5
+       }
+    Add Expense flow:
+       Create graph edges from expense record
+       Add edges to graph with EDGE_TYPE = REGULAR
+       if(simplifiedEdges == true){
+        Clear all simplified edges
+        Calculate new simplifies edges 
+       }
+    Delete Expense flow:
+        Create graph edges from expense record
+        Remove the above edges from graph with EDGE_TYPE = REGULAR
+        if(simplifyDebts == true){
+            Clear all simplified edges with EDGE_TYPE = SIMPLIFIED
+            Calculate new simplifies edges 
+        }
+
+    Get Overall Balance statement:
+        For each member:
+            Sum all in active edges to get 'total owed'
+            sum all out active edges to get 'total owing'
+            if(simplifyDebts == true)
+                activeedge = EDGE_TYPE.SIMPLIFIED
+            else
+                activeedge = EDGE_TYPE.REGULAR
+
+
+

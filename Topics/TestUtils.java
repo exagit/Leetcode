@@ -31,4 +31,15 @@ public class TestUtils {
         }
         return finalList;
     }
+
+    public static <T> List<List<T>> convert2dArrayToNestedList(T[][] array) {
+        List<List<T>> finalList = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            finalList.add(new ArrayList<>());
+            for (int j = 0; j < array[i].length; j++) {
+                finalList.get(i).add(array[i][j]);
+            }
+        }
+        return finalList;
+    }
 }

@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "QueueRunner",
+            "request": "launch",
+            "mainClass": "MachineCoding.Dream11Round1.lib.QueueRunner",
+            "projectName": "Leetcode_7d58bef4"
+        },
+        {
+            "type": "java",
+            "name": "SnakeLadderMain",
+            "request": "launch",
+            "mainClass": "MachineCoding.SnakeLadder.lib.SnakeLadderMain",
+            "projectName": "Leetcode_7d58bef4"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}",
@@ -20,7 +34,7 @@
             "projectName": "Leetcode_7d58bef4",
             "env": {
                 "OUTPUT_PATH": "/Users/priyeshshrivastava/GitHub/Leetcode/out/SnakesAndLadder.out"
-            },
+            }
         }
     ]
 }

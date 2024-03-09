@@ -2,6 +2,7 @@ package Topics.Graphs;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 
 public class LongestConsecutiveSequence {
@@ -20,7 +21,6 @@ public class LongestConsecutiveSequence {
     }
 }
 
-
 class LCSSolution {
 
     public int longestConsecutive(int[] nums) {
@@ -33,7 +33,6 @@ class LCSSolution {
         return dSet.findMaxSubset();
     }
 }
-
 
 class DisjointSet {
     private Map<Integer, Node> map;
@@ -65,12 +64,9 @@ class DisjointSet {
         if (node1Parent == node2Parent) {
             return;
         }
-        if (node2Parent.rank <= node1Parent.rank) {
+        if (node2Parent.subsetSize <= node1Parent.subsetSize) {
             node2Parent.parent = node1Parent;
             node1Parent.subsetSize += node2Parent.subsetSize;
-            if (node1Parent.rank == node2Parent.rank) {
-                node1Parent.rank++;
-            }
         } else {
             node1Parent.parent = node2Parent;
             node2Parent.subsetSize += node1Parent.subsetSize;

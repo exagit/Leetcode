@@ -1,0 +1,69 @@
+SnakeLadderService{
+    Map<Name, Player> gameplayers;
+    String currentPlayer;
+    Dice dice;
+    Board board;
+    setBoardSize(N);
+    setDice();
+    addPlayer(player);
+
+    init(){
+        this.board = BoardFactory.createSquareBoard(N);
+        this.dice = DiceFactory.createRegularDice();
+    }
+
+    run(){
+        while(this.PlayerTurnStrategy.hasPlayersLeft()){
+            currPlayer = this.PlayerTurnStrategy.next();
+            int N = this.dice.roll();
+            if(N!=0){
+                position = currPlayer.position;
+                position = board.movePlayerPosition(position, N);
+                position = board.handleSnakes(position);
+                position = board.handleLadder(position);
+                currPlayer.position = position;
+            }
+            if(currPlayer.position == board.getLastPosition()){
+                this.declareFinisher(currPlayer);
+            }
+            else{
+                this.PlayerTurnStrategy.addBackPlayer(currPlayer);
+            }
+        }
+    }
+
+
+    addAllplayers to queue;
+    while queue.isNotEmpty()
+        currentPlayer = queue.poll();
+        N = roll dice
+        if N is 0 cancel the move
+        move current player position ahead by N
+        if position is not within board
+            cancel the move
+        if stop at snake head jump to snake tail
+        if stop at ladder head jump to ladder tail
+        if curr player position == N*N last cell, declare the player as winner/move him out of the game and continue with the rest
+        queue.addPlayer(currentPlayer);
+
+}
+
+PlayerTurnStrategy{
+    addPlayers(playersList);
+    hasPlayersLeft()
+    getNextPlayer()
+    addBackPlayer()
+}
+
+RoundRobinTurnStrategy implements PlayerTurnStrategy{
+
+    hasPlayersLeft(){
+        return queue.isEmpty;
+    }
+    getNextPlayer(){
+        if queue.isNotEmpty:
+            return queue.poll();
+    }
+    addBackPlayer(player):
+        queue.add(player);
+}
