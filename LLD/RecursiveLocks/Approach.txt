@@ -1,0 +1,37 @@
+reentrant lock:
+1. when lock is unacquired, any thread can lock it
+2. once acquired, the thread that acquired it becomes the owner, and can acquire it multiple times, each time increasing a counter when doing so,
+3. when the same thread calls unlock, the counter decreases and when the counter becomes 0, the lock is finally released,
+4. until the lock is released, no other thread can acquire it
+
+
+Class ReentrantLock{
+    Lock l = new Lock();
+    isLocked = false;
+    synchronized lock(){
+        if(!isLocked){
+            this.l.lock();
+            this.isLocked = true;
+            this.counter++;
+            this.ownerThread = Thread.currentThread;
+        }
+        else {
+            if(this.ownerThread == Thread.currentThread()){
+                this.counter++;
+            }
+            else{
+                this.l.lock();
+            }
+        }
+    } 
+
+    synchronized release(){
+        if(this.ownerThread == Thread.currentThread()){
+            this.counter--;
+            if(this.counter==0){
+                this.l.unlock();
+                this.ownerThread = null;
+            }
+        }
+    }
+}

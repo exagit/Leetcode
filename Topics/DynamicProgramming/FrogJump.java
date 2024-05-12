@@ -87,7 +87,7 @@ class FJSol {
     private int lowerBound(int[] stones, int start, int end, int search) {
         while (start < end) {
             int mid = (start + end) / 2;
-            if (search > stones[mid]) {
+            if (stones[mid] < search) {
                 start = mid + 1;
             } else {
                 end = mid;

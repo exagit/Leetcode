@@ -21,12 +21,24 @@ Approach:
 Entities:
   Queue implements Runnable{
     BlockingQueue<size> queue;
-    Map<Consumer, Filter> consumers;
-    Map<ParentConsumer, List<DependentConsumer>> consumderDependencies;
-    Callbackhandler callbackHandler;
+    Map<ConsumerId, Predicate> consumerFilter;
+    Map<ConsumerId, Consumer> consumerCallbacks;
+    ConsumerDispatcher dispatcher;
+    ExecutorService callbackExecutorService;
 
-    subscribe(consumerId, callback, filter, dependencies){
-        callbackHandler.add(consumerId, callback, filter);
+    constructor(){
+        consumerFilter = new HashMap<>();
+        consumerCallbacks = new HashMap<>();
+        dispatcher = new OrderedDispatcher();
+    }
+
+    subscribe(consumerId, callback, filter, List<ConsumerId> dependencies){
+        consumerFilter.put(ConsumerId, filter);
+        consumerCallbacks.put(ConsumerId, callback);
+        dispatcher.addConsumer(consumerId);
+        for(dependencyConsumerId of dependencies){
+            dispatcher.addDependency(consumerId, dependencyConsumerId);
+        }
     }
 
     void publish(message){
@@ -35,77 +47,33 @@ Entities:
 
     private run(){
         while(message = this.queue.next()){
-            const dispatcher = new OrderedDispatcher(callbackHandler, ttlHandler, consumderDependencies);
-            dispatcher.sendMessage(message);
-        }
-    }
-  }
-
-  OrderedDispatcher{
-    constructor(callbackHandler, ttlHandler, consumerDependencies){
-        super(callbackHandler, ttlHandler);
-        outDegree = initOutDegree(consumderDependencies);
-        queue = [];
-        for each consumerKey in outDegree:
-            if outDegree[consumerKey] == 0:
-                queue.add(consumerKey);
-    }
-            
-    hasMoreConsumers(){
-        return !q.isEmpty();
-    }
-
-    nextConsumer(){
-        consumer = q.poll();
-        for(each dependency of dependenciesMap[consumer]){
-            outDegree[dependency]--;
-            if(outDegree[dependency]==0){
-                q.add(dependency);
-            }
-        }
-        return consumer;
-    }
-
-    Dispatcher{
-        constructor(callbackHandler, ttlHandler){
-            this.callbackHandler = callbackHandler;
-            this.ttlHandler = ttlHandler;
-        }
-
-        sendMessage(){
-            while(this.hasMoreConsumers()){
-                consumer = this.nextConsumer();
-                if(ttlHandler.ismessageValid(message)){
-                    callbackHandler.callback(consumer, message);
+            for(ConsumerId of dispatcher.getOrderedConsumers()){
+                if(ttlHandler.isAlive(message)){
+                        consumerFilter = consumerFilter.get(consumerId);
+                        if(consumerFilter.test(message)){
+                            consumerCallback = consumerCallbacks.get(consumerId);
+                            callbackExecutorService.submit(()=>{
+                                consumerCallback.accept(message);
+                            });
+                        }
+                    }
+                else{
+                    // print message is expired, break to the next message
+                    break;
                 }
             }
         }
-        nextConsumer(){
-
-        }
     }
-    public static void main(string args[]){
-        new Thread(new Queue()).start();
+  }
+
+
+  OrderedDispatcher{
+    void addDependency(consumerId, dependencyConsumerId){
+        // maintains a graph of connected consumer nodes and their dependencies
     }
 
 
+    List<ConsumerId> getOrderedConsumers(){
+        // returns ordered list of consumer ids from the graph created
+    }
   }
-
-  Message{
-    jsonData;
-  }
-
-  Producer{
-    queue;
-    run()
-  }
-
-  Consumer{
-    callback()
-  }
-
-
-B->A
- ^ ^
-  \|
-   C
